@@ -28,7 +28,7 @@ db.createCollection("movies", {
   }
 })
 
-// Insert single document
+
 db.movies.insertOne({
   title: "Leo",
   genre: "Action",
@@ -36,28 +36,52 @@ db.movies.insertOne({
   releaseYear: 2023
 })
 
-// Insert multiple documents
+
 db.movies.insertMany([
   { title: "Jailer", genre: "Action", rating: 7.8, releaseYear: 2023 },
   { title: "Master", genre: "Action", rating: 8.1, releaseYear: 2021 },
   { title: "Vikram", genre: "Thriller", rating: 8.9, releaseYear: 2022 }
 ])
 
-// Find all movies
+
 db.movies.find()
-// Find movies with rating greater than 8
+
+db.movies.findOne({ title: "Leo" })
+
 db.movies.find({ rating: { $gt: 8 } }) 
 
-//Find movies with genre = Action
 db.movies.find({ genre: "Action" })
 
-//Update Rating
+db.movies.find({
+  genre: "Action",
+  rating: { $gt: 8 }
+})
+
 db.movies.updateOne({ title: "Leo" }, { $set: { rating: 9.0 } })
 
-// Delete One Movie
+db.movies.updateOne(
+  { title: "Jailer" },
+  { $set: { rating: 8.2 } }
+)
+
+db.movies.updateMany(
+  { genre: "Action" },
+  { $set: { status: "Popular" } }
+)
+
+db.movies.updateOne(
+  { title: "Leo" },
+  { $set: { language: "Tamil" } }
+)
+
+db.movies.deleteMany({ genre: "Action" })
+
 db.movies.deleteOne({ title: "Master" })
 
-// Verify / Validation Check
+db.movies.find().pretty()
+
+db.movies.countDocuments()
+
 db.movies.insertOne({
   title: "Test",
   genre: "Drama",
